@@ -1,7 +1,8 @@
 
-const startEl = document.querySelector('[data-start]');
-const stopEl = document.querySelector('[data-stop]');
+const startElBtn = document.querySelector('[data-start]');
+const stopElBtn = document.querySelector('[data-stop]');
 
+let timerId  = null;
 
 function getRandomHexColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -11,21 +12,18 @@ const changesBackgroundColorOfBody = function() {
     const currentColor = `${getRandomHexColor()}`;
     document.body.style.backgroundColor = currentColor;
  }
-  
-/* const onClickChangeColor = () => {
-    setTimeout(changesBackgroundColorOfBody, 1000);
-  };
 
-startEl.addEventListener('click', onClickChangeColor);
-stopEl.removeEventListener('click', onClickChangeColor);
-   */
 
-  startEl.addEventListener("click", () => {
-    timerId = setInterval(() => {
-        changesBackgroundColorOfBody();
-    }, 1000);
-  });
+ startElBtn.addEventListener("click", () => {
+  timerId = setInterval(() => {
+    changesBackgroundColorOfBody();
+  }, 1000);
+});
 
-  stopEl.removeEventListener('click', () => {
-    document.startEl.classList.add("disabled");
-  })
+
+stopElBtn.addEventListener("click", () => {
+  clearInterval(timerId);
+  console.log(`Interval with id ${timerId} has stopped!`);
+
+  startElBtn.setAttribute('disabled', '');
+});
