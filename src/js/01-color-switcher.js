@@ -12,11 +12,20 @@ const changesBackgroundColorOfBody = function() {
     document.body.style.backgroundColor = currentColor;
  }
   
-const onClickChangeColor = () => {
+/* const onClickChangeColor = () => {
     setTimeout(changesBackgroundColorOfBody, 1000);
   };
-  
 
 startEl.addEventListener('click', onClickChangeColor);
-
 stopEl.removeEventListener('click', onClickChangeColor);
+   */
+
+  startEl.addEventListener("click", () => {
+    timerId = setInterval(() => {
+        changesBackgroundColorOfBody();
+    }, 1000);
+  });
+
+  stopEl.removeEventListener('click', () => {
+    document.startEl.classList.add("disabled");
+  })
