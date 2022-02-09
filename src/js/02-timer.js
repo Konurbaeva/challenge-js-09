@@ -8,7 +8,13 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
       console.log(selectedDates[0]);
+
+      let dates = selectedDates[0];
+     
+      console.log('dates: ', dates);
+      return dates
     },
   };
 
 flatpickr("#datetime-picker", options);
+
