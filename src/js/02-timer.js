@@ -17,11 +17,14 @@ function convertMs(ms) {
   // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
   // Remaining seconds
-  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+  const seconds = pad(Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
 }
 
+function pad(value) {
+  return String(value).padStart(2, '0');
+}
 
 const options = {
     enableTime: true,
@@ -34,6 +37,11 @@ const options = {
      
       console.log(convertMs(choosenDate));
       console.log('choosenDate: ', choosenDate)
+
+      const currentDate = Date.now();
+
+     console.log('currentDate', currentDate) // ms 1644419414312#
+
       return choosenDate;
     },
   };
@@ -41,7 +49,5 @@ const options = {
 
 flatpickr("#datetime-picker", options);
 
-const currentDate = Date.now();
 
-console.log('currentDate', currentDate) // ms 1644419414312#
 
