@@ -19,4 +19,4 @@ parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcel
 },{}],"d2uN":[function(require,module,exports) {
 "use strict";var e=t(require("flatpickr"));function t(e){return e&&e.__esModule?e:{default:e}}require("flatpickr/dist/flatpickr.min.css");const r={enableTime:!0,time_24hr:!0,defaultDate:new Date,minuteIncrement:1,onClose(e){console.log(e[0]);let t=e[0];return console.log("dates: ",t),t}};(0,e.default)("#datetime-picker",r);
 },{"flatpickr":"BKNP","flatpickr/dist/flatpickr.min.css":"c0Wa"}]},{},["d2uN"], null)
-//# sourceMappingURL=/parcel-project-template/02-timer.3c8524d9.js.map
+//# sourceMappingURL=/parcel-project-template/02-timer.906e369b.js.map
