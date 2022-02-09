@@ -39,27 +39,30 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
 
-      const currentDate = Date.now();
+      const currentTime = Date.now();
       const selectedDate = selectedDates[0].getTime();
-      const converted = convertMs(selectedDate);
+      let difference = selectedDate - currentTime;
 
-     if(selectedDate < currentDate) {
+     if(selectedDate < currentTime) {
        alert("Please choose a date in the future");
        startElBtn.setAttribute('disabled', '');
      } else {
        startElBtn.removeAttribute('disabled');
      }
 
-    // convertMs(selectedDate({ days, hours, minutes, seconds }))
-     //hoursEl.innerHTML = days;
-     console.log('converted', converted)
+     setInterval(() => {
 
-     daysEl.innerHTML = converted.days;
-     hoursEl.innerHTML = converted.hours;
-     minutesEl.innerHTML = converted.minutes;
-     secondsEl.innerHTML = converted.seconds;
-     
-     console.log("selectedDate", selectedDate)
+      difference = difference - 1000;
+      let convertedDifference = convertMs(difference);
+
+      daysEl.innerHTML =  convertedDifference.days;
+      hoursEl.innerHTML =  convertedDifference.hours;
+      minutesEl.innerHTML =  convertedDifference.minutes;
+      secondsEl.innerHTML =  convertedDifference.seconds;
+
+      return difference;
+    }, 1000);
+
       return selectedDate;
     },
   };
