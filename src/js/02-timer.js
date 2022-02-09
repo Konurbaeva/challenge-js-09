@@ -1,6 +1,7 @@
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
 
+
 const startElBtn = document.querySelector('[data-start]');
 const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
@@ -48,12 +49,18 @@ const options = {
 
      if(selectedDate < currentTime) {
        alert("Please choose a date in the future");
+  
        startElBtn.setAttribute('disabled', '');
-       console.log('intervalId: ', interValId);
+       daysEl.innerHTML =  '00';
+       hoursEl.innerHTML = '00';
+       minutesEl.innerHTML = '00';
+       secondsEl.innerHTML =  '00';
+
        clearInterval(interValId);
-       
+
      } else {
        startElBtn.removeAttribute('disabled');
+
      }
 
       return selectedDate;
@@ -77,8 +84,6 @@ const options = {
 
       return difference;
     }, 1000);
-
-    console.log('interValId', interValId);
   }
 
 startElBtn.setAttribute('disabled', '');

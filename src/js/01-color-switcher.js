@@ -18,6 +18,9 @@ const changesBackgroundColorOfBody = function() {
   timerId = setInterval(() => {
     changesBackgroundColorOfBody();
   }, 1000);
+
+  startElBtn.setAttribute('disabled', '');
+  stopElBtn.removeAttribute('disabled');
 });
 
 
@@ -25,5 +28,7 @@ stopElBtn.addEventListener("click", () => {
   clearInterval(timerId);
   console.log(`Interval with id ${timerId} has stopped!`);
 
-  startElBtn.setAttribute('disabled', '');
+
+  startElBtn.removeAttribute('disabled');
+  stopElBtn.setAttribute('disabled', '');
 });
