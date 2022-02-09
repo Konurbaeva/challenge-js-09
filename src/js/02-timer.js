@@ -9,12 +9,14 @@ const options = {
     onClose(selectedDates) {
       console.log(selectedDates[0]);
 
-      let dates = selectedDates[0];
+      let choosenDate = selectedDates[0];
      
-      console.log('dates: ', dates);
-      return dates
+      console.log('dates: ', choosenDate);
+      return choosenDate;
     },
   };
+
+
 
 flatpickr("#datetime-picker", options);
 
