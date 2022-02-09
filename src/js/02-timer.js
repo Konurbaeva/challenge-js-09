@@ -1,8 +1,6 @@
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
 
-let choosenDate = '123';
-
 function convertMs(ms) {
   // Number of milliseconds per unit of time
   const second = 1000;
@@ -33,16 +31,18 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
 
-      choosenDate = selectedDates[0];
-     
-      console.log(convertMs(choosenDate));
-      console.log('choosenDate: ', choosenDate)
-
       const currentDate = Date.now();
+      const selectedDate = selectedDates[0].getTime();
 
-     console.log('currentDate', currentDate) // ms 1644419414312#
+     console.log('currentDate', currentDate) 
+     console.log('chosenDate', selectedDate)
 
-      return choosenDate;
+     if(selectedDate < currentDate) {
+       alert("Please choose a date in the future");
+     } 
+     
+
+      return selectedDate;
     },
   };
 
