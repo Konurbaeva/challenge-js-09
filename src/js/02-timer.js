@@ -2,6 +2,10 @@ import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
 
 const startElBtn = document.querySelector('[data-start]');
+const daysEl = document.querySelector('[data-days]');
+const hoursEl = document.querySelector('[data-hours]');
+const minutesEl = document.querySelector('[data-minutes]');
+const secondsEl = document.querySelector('[data-seconds]');
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -11,13 +15,14 @@ function convertMs(ms) {
   const day = hour * 24;
 
   // Remaining days
-  const days = Math.floor(ms / day);
+  const days = pad(Math.floor(ms / day));
   // Remaining hours
-  const hours = Math.floor((ms % day) / hour);
+  const hours = pad(Math.floor((ms % day) / hour));
   // Remaining minutes
-  const minutes = Math.floor(((ms % day) % hour) / minute);
+  const minutes = pad(Math.floor(((ms % day) % hour) / minute));
   // Remaining seconds
-  const seconds = pad(Math.floor((((ms % day) % hour) % minute) / second));
+
+ const seconds = pad(Math.floor((((ms % day) % hour) % minute) / second));
 
   return { days, hours, minutes, seconds };
 }
@@ -30,11 +35,13 @@ const options = {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
+    enableSeconds: true,
     minuteIncrement: 1,
     onClose(selectedDates) {
 
       const currentDate = Date.now();
       const selectedDate = selectedDates[0].getTime();
+      const converted = convertMs(selectedDate);
 
      if(selectedDate < currentDate) {
        alert("Please choose a date in the future");
@@ -43,7 +50,16 @@ const options = {
        startElBtn.removeAttribute('disabled');
      }
 
+    // convertMs(selectedDate({ days, hours, minutes, seconds }))
+     //hoursEl.innerHTML = days;
+     console.log('converted', converted)
+
+     daysEl.innerHTML = converted.days;
+     hoursEl.innerHTML = converted.hours;
+     minutesEl.innerHTML = converted.minutes;
+     secondsEl.innerHTML = converted.seconds;
      
+     console.log("selectedDate", selectedDate)
       return selectedDate;
     },
   };
