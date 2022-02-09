@@ -27,6 +27,8 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+let difference = 0;
+
 function pad(value) {
   return String(value).padStart(2, '0');
 }
@@ -41,7 +43,7 @@ const options = {
 
       const currentTime = Date.now();
       const selectedDate = selectedDates[0].getTime();
-      let difference = selectedDate - currentTime;
+      difference = selectedDate - currentTime;
 
      if(selectedDate < currentTime) {
        alert("Please choose a date in the future");
@@ -50,7 +52,16 @@ const options = {
        startElBtn.removeAttribute('disabled');
      }
 
-     setInterval(() => {
+      return selectedDate;
+    },
+  };
+
+
+  function countDown() {
+
+    startElBtn.setAttribute('disabled', '');
+
+    setInterval(() => {
 
       difference = difference - 1000;
       let convertedDifference = convertMs(difference);
@@ -62,12 +73,13 @@ const options = {
 
       return difference;
     }, 1000);
-
-      return selectedDate;
-    },
-  };
+  }
 
 startElBtn.setAttribute('disabled', '');
+
+
+startElBtn.addEventListener('click', countDown)
+
 flatpickr("#datetime-picker", options);
 
 
