@@ -1,59 +1,48 @@
+import Notiflix from 'notiflix';
 
+const formEl = document.querySelector('.form');
+const delayEl = document.querySelector('[name="delay"]');
+const stepEl = document.querySelector('[name="step"]');
+const amountEl = document.querySelector('[name="amount"]');
 
-const formEl = document.querySelector('.form')
-const buttonEl = document.querySelector('[type="submit"]');
-const delay = document.querySelector('[name="delay"]');
-const step = document.querySelector('[name="step"]');
-const amount = document.querySelector('[name="amount"]');
-
-function createPromise(position, delay) {
-  const shouldResolve = Math.random() > 0.3;
-
-  const promise = new Promise((resolve, reject) => {
+function createPromise(position, delay){
+  const promiseObj = new Promise((resolve, reject) => {
+    const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
-        resolve("Success! Value passed to resolve function");
+        resolve(`✅ Fulfilled promise ${position} in ${delay}ms`);
       } else {
-        reject("Error! Error passed to reject function");
+        reject(`❌ Rejected promise ${position} in ${delay}ms`);
       }
-    }, position, delay);
+    }, delay);
   });
-  return promise;
-}
+  return promiseObj;
+};
 
-createPromise(step, delay)
-  .then(({ position, delay }) => {
-    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
-
-
-function onFormSubmit(evt) {
+formEl.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-  const {
-    elements: { delay, step, amount },
-  } = evt.currentTarget;
-
   const formSubmitObj = {
-    delay: delay.value,
-    step: step.value,
-    amount: amount.value,
+    delay: delayEl.value,
+    step: stepEl.value,
+    amount: amountEl.value,
   };
 
-  if (delay.value === "" || step.value === "") {
-    alert("Please fill in all the fields!");
-    evt.currentTarget.reset();
-  }
+  let delay = parseInt(formSubmitObj.delay);
+  let step = parseInt(formSubmitObj.step);
+  let amount = parseInt(formSubmitObj.amount);
 
-  console.log(formSubmitObj);
+  setTimeout(() => {
+    for (let i = 1; i <=  amount; i++) {
+      createPromise(i, delay)
+      .then((promiseObj) => {
+        Notiflix.Notify.success(promiseObj);
+      })
+      .catch((promiseObj) => {
+        Notiflix.Notify.failure(promiseObj);
+      });
 
-  createPromise(1000, 500);
-
-  evt.currentTarget.reset();
-}
-
-formEl.addEventListener('submit', onFormSubmit);
-
+      delay += step;
+    }
+  }, delay);
+});
