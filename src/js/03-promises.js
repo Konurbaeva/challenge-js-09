@@ -18,6 +18,14 @@ function createPromise(position, delay){
   });
 };
 
+function onSuccess(result) {
+  Notiflix.Notify.success(result);
+}
+
+function onError(error) {
+  Notiflix.Notify.failure(error);
+}
+
 formEl.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
@@ -28,12 +36,8 @@ formEl.addEventListener('submit', (evt) => {
   setTimeout(() => {
     for (let i = 1; i <=  amount; i++) {
       createPromise(i, delay)
-      .then((promiseObj) => {
-        Notiflix.Notify.success(promiseObj);
-      })
-      .catch((promiseObj) => {
-        Notiflix.Notify.failure(promiseObj);
-      });
+      .then(onSuccess)
+      .catch(onError);
 
       delay += step;
     }
