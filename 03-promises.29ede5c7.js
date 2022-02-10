@@ -5,4 +5,4 @@ var t,e=arguments[3];!function(e,i){"function"==typeof t&&t.amd?t([],function(){
 },{}],"GyVV":[function(require,module,exports) {
 "use strict";var e=t(require("notiflix"));function t(e){return e&&e.__esModule?e:{default:e}}const n=document.querySelector(".form"),u=document.querySelector('[name="delay"]'),r=document.querySelector('[name="step"]'),o=document.querySelector('[name="amount"]');function a(e,t){return new Promise((n,u)=>{const r=Math.random()>.3;setTimeout(()=>{r?n(`✅ Fulfilled promise ${e} in ${t}ms`):u(`❌ Rejected promise ${e} in ${t}ms`)},t)})}function i(t){e.default.Notify.success(t)}function s(t){e.default.Notify.failure(t)}n.addEventListener("submit",e=>{e.preventDefault();let t=parseInt(u.value),n=parseInt(r.value),c=parseInt(o.value);setTimeout(()=>{for(let e=1;e<=c;e++)a(e,t).then(i).catch(s),t+=n},t)});
 },{"notiflix":"W3Ap"}]},{},["GyVV"], null)
-//# sourceMappingURL=/parcel-project-template/03-promises.29ede5c7.js.map
+//# sourceMappingURL=/challenge-js-09/03-promises.29ede5c7.js.map
