@@ -2,38 +2,58 @@
 
 const formEl = document.querySelector('.form')
 const buttonEl = document.querySelector('[type="submit"]');
+const delay = document.querySelector('[name="delay"]');
+const step = document.querySelector('[name="step"]');
+const amount = document.querySelector('[name="amount"]');
 
 function createPromise(position, delay) {
   const shouldResolve = Math.random() > 0.3;
 
-  if (shouldResolve) {
-   // resolve(position)
-  } else {
-  //  reject(position)
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve("Success! Value passed to resolve function");
+      } else {
+        reject("Error! Error passed to reject function");
+      }
+    }, position, delay);
+  });
+  return promise;
+}
 
+createPromise(step, delay)
+  .then(({ position, delay }) => {
+    console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+  })
+  .catch(({ position, delay }) => {
+    console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+  });
+
+
+function onFormSubmit(evt) {
+  evt.preventDefault();
+
+  const {
+    elements: { delay, step, amount },
+  } = evt.currentTarget;
+
+  const formSubmitObj = {
+    delay: delay.value,
+    step: step.value,
+    amount: amount.value,
+  };
+
+  if (delay.value === "" || step.value === "") {
+    alert("Please fill in all the fields!");
+    evt.currentTarget.reset();
   }
+
+  console.log(formSubmitObj);
+
+  createPromise(1000, 500);
+
+  evt.currentTarget.reset();
 }
 
-function onPromise(resolve, reject) {
+formEl.addEventListener('submit', onFormSubmit);
 
-  const DELAY = 1000;
-
-  setTimeout(() => {
-    if (shouldResolve) {
-      resolve(`✅ resolved: ${position}`);
-    }
-
-    reject('❌ rejected');
-  }, DELAY);
-
-}
-
-function onFormNotLoad(event){
-
-  event.preventDefault();
-
-}
-
-
-buttonEl.addEventListener('click', createPromise)
-formEl.addEventListener('submit', onFormNotLoad)
