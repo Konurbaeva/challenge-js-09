@@ -6,7 +6,7 @@ const stepEl = document.querySelector('[name="step"]');
 const amountEl = document.querySelector('[name="amount"]');
 
 function createPromise(position, delay){
-  const promiseObj = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const shouldResolve = Math.random() > 0.3;
     setTimeout(() => {
       if (shouldResolve) {
@@ -16,21 +16,14 @@ function createPromise(position, delay){
       }
     }, delay);
   });
-  return promiseObj;
 };
 
 formEl.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
-  const formSubmitObj = {
-    delay: delayEl.value,
-    step: stepEl.value,
-    amount: amountEl.value,
-  };
-
-  let delay = parseInt(formSubmitObj.delay);
-  let step = parseInt(formSubmitObj.step);
-  let amount = parseInt(formSubmitObj.amount);
+  let delay = parseInt(delayEl.value);
+  let step = parseInt(stepEl.value);
+  let amount = parseInt(amountEl.value);
 
   setTimeout(() => {
     for (let i = 1; i <=  amount; i++) {
